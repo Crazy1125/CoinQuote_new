@@ -37,6 +37,34 @@ export default function SelectCoin({ navigation, coincount }) {
     console.log(selcoindata.symbol);
   }
   useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get(
+        //       // 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest',
+        'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+        {
+          headers: {
+            'X-CMC_PRO_API_KEY': '0b646e2f-36da-4808-92ef-bfc5137c0c92',
+          },
+          params: {
+            start: '1',
+            limit: '20',
+            convert: 'USD',
+          },
+        }
+      );
+      response.data.data.forEach(item => {
+
+        console.log(item.quote.USD.percent_change_24h);
+      });
+      coindatas = response.data.data;
+      setCoinData(coindatas);
+      selectedcoindatas = []
+      setSelectedCoinData(selectedcoindatas);
+      setLoaded(true);
+    };
+    if (!loaded) {
+      getData();
+    }
 
   }, []);
   return (

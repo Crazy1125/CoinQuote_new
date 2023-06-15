@@ -89,11 +89,11 @@ export default function Coin({ coindata, selectCoin }) {
                 <Text style={{ fontSize: 13, color: 'black', fontWeight: 'bold', fontSize: 16, }} white>24h% :</Text>
 
                 {coindata.quote.USD.percent_change_24h > 0 && (
-                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲0.25%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h < 0 && (
-                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼0.12%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h === 0 && (
