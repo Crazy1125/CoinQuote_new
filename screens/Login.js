@@ -14,7 +14,8 @@ const imageURI = require('../assets/login.png');
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
-   
+  const [password, setPassword] = useState('');
+
 
   const handleGoBack = () => Alert.alert('Back button pressed');
 
@@ -30,7 +31,7 @@ const Login = ({ navigation }) => {
 
   return (
     <Block safe flex style={styles.container}>
-      
+
       <ScrollView style={styles.flex} keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior="position"
@@ -40,14 +41,14 @@ const Login = ({ navigation }) => {
             center
             source={imageURI}
             resizeMode='contain'
-            style={{ width: width}}
+            style={{ width: width }}
             marginTop={-70}
           />
           {/* <Text center h1 white marginTop={-150} marginHorizontal={30}>SIGN IN</Text> */}
-          
+
           <Block flex middle marginTop={-80}>
-            <Form email={email} setEmail={setEmail} />
-            <SignButtons handleSignIn={handleSignIn} handleSignUp={handleSignUp}/>
+            <Form email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+            <SignButtons handleSignIn={handleSignIn} handleSignUp={handleSignUp} />
           </Block>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -55,7 +56,7 @@ const Login = ({ navigation }) => {
   );
 }
 
-const Form = ({ email, setEmail}) => (
+const Form = ({ email, setEmail, password, setPassword }) => (
   <Block style={{ marginBottom: 20 }}>
     <Text h4 white marginTop={10} marginLeft={30}>Email / Mobile Number *</Text>
     <Input
@@ -67,24 +68,33 @@ const Form = ({ email, setEmail}) => (
       onChangeText={setEmail}
       value={email}
     />
-    
+    <Input
+      borderless
+      secureTextEntry
+      placeholder="Enter your password"
+      autoCapitalize="none"
+      style={styles.input}
+      onChangeText={setPassword}
+      value={password}
+    />
+
   </Block>
 );
 
-const SignButtons = ({handleSignIn ,handleSignUp}) => (
-  <Block flex left style={{ marginBottom: 20, marginLeft:15, marginTop:-20}}>
+const SignButtons = ({ handleSignIn, handleSignUp }) => (
+  <Block flex left style={{ marginBottom: 20, marginLeft: 15, marginTop: -20 }}>
     <Button
       shadowless
       style={styles.button}
-      
+
       color="white"
       onPress={handleSignIn}
     >
-    <Text style={{fontWeight:'bold'}}>Log in</Text>
-      
+      <Text style={{ fontWeight: 'bold' }}>Log in</Text>
+
     </Button>
-    
-      
+
+
     <Button color="transparent" shadowless onPress={handleSignUp} >
       <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.9} marginTop={-30} width={width} marginLeft={50}>
         {"Don't have an account? Sign Up"}
@@ -129,8 +139,8 @@ const styles = StyleSheet.create({
     width: '50%',
     marginLeft: MARGIN_LEFT,
   },
-  phoneContainer:{
-    marginLeft:25
+  phoneContainer: {
+    marginLeft: 25
   }
 });
 
