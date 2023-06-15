@@ -7,33 +7,33 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import { Block} from 'expo-ui-kit';
+import { Block } from 'expo-ui-kit';
 import Coin from "./Coin";
 
 // definition of the Item, which will be rendered in the FlatList
-const Item = ({ coindata, selectCoin }) => (
-    <Coin coindata={coindata} selectCoin={selectCoin}/>
+const Item = ({ coindata, selectCoin, count }) => (
+  <Coin coindata={coindata} selectCoin={selectCoin} count={count} />
 );
 
 // the filter
-const List = ({ searchPhrase,  data, selectCoin }) => {
+const List = ({ searchPhrase, data, selectCoin, count }) => {
   const renderItem = ({ item }) => {
     // when no input, show all
     if (searchPhrase === "") {
-      return <Item coindata={item} selectCoin={selectCoin}/>;
+      return <Item coindata={item} selectCoin={selectCoin} count={count} />;
     }
     // filter of the name
     if (item.symbol.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-      return <Item coindata={item} selectCoin={selectCoin}/>;
+      return <Item coindata={item} selectCoin={selectCoin} count={count} />;
     }
-    
+
   };
 
   return (
     <SafeAreaView style={styles.list__container}  >
       <Block
         onStartShouldSetResponder={() => {
-        //   setClicked(false);
+          //   setClicked(false);
         }}
       >
         <FlatList
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     height: "85%",
     width: "96%",
     position: 'absolute',
-    marginTop:100
+    marginTop: 100
   },
   item: {
     margin: 30,

@@ -24,7 +24,10 @@ export default function SelectCoin({ navigation, coincount }) {
 
   const coinURI = require(`../assets/coinicons/1.png`);
   const selectCoin = (index, selcoindata, direction, multicount) => {
+
     setCount(count + index);
+    console.log(count);
+
     if (index == 1) {
       newSelCoin = {};
       newSelCoin.data = selcoindata;
@@ -90,6 +93,7 @@ export default function SelectCoin({ navigation, coincount }) {
         searchPhrase={searchPhrase}
         data={coindata}
         selectCoin={selectCoin}
+        count={count}
 
       />
 

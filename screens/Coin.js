@@ -1,7 +1,6 @@
 import { Block, Text } from "expo-ui-kit";
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView } from "react-native";
-
 import axios from 'axios';
 import { Button, Icon } from 'galio-framework';
 import { StyleSheet } from "react-native";
@@ -12,7 +11,7 @@ import MultiButtonSelect from './MultiButtonSelect'
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Coin({ coindata, selectCoin }) {
+export default function Coin({ coindata, selectCoin, count }) {
   // const coinURI = require(path);
   const coinURI = require(`../assets/coinicons/1.png`);
   const [showView, setShowView] = useState(true);
@@ -26,10 +25,18 @@ export default function Coin({ coindata, selectCoin }) {
   const textcolors1 = ['#60ff00', 'red'];
   const textcolors2 = ['#00164f', '#00164f', '#00164f', '#00164f', '#00164f'];
   const handleSelectCoinClick = () => {
-    showView ? setShowView(false) : setShowView(true);
-    selectCoin(1, coindata, direction, mulcount);
+    if (count <= 6) {
+      console.log("count", count);
+      showView ? setShowView(false) : setShowView(true);
+      selectCoin(1, coindata, direction, mulcount);
+    }
+    if (count > 6) {
+
+    }
+
   };
   const handleCancelCoinClick = () => {
+    console.log("count", count);
     showView ? setShowView(false) : setShowView(true);
     selectCoin(-1, coindata, 0, 0);
   };
@@ -89,11 +96,11 @@ export default function Coin({ coindata, selectCoin }) {
                 <Text style={{ fontSize: 13, color: 'black', fontWeight: 'bold', fontSize: 16, }} white>24h% :</Text>
 
                 {coindata.quote.USD.percent_change_24h > 0 && (
-                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲0.25%</Text>
+                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h < 0 && (
-                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼0.12%</Text>
+                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h === 0 && (
