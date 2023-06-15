@@ -96,15 +96,15 @@ export default function Coin({ coindata, selectCoin, count }) {
                 <Text style={{ fontSize: 13, color: 'black', fontWeight: 'bold', fontSize: 16, }} white>24h% :</Text>
 
                 {coindata.quote.USD.percent_change_24h > 0 && (
-                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h < 0 && (
-                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h === 0 && (
-                  <Text style={{ fontSize: 14, color: '#green', fontWeight: 'bold', fontSize: 16, }} white> {coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
+                  <Text style={{ fontSize: 14, color: '#green', fontWeight: 'bold', fontSize: 16, }} white> {coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
                 )}
 
               </Block>
