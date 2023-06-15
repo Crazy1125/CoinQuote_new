@@ -4,6 +4,8 @@ import { Image, Alert, Dimensions, StyleSheet, KeyboardAvoidingView, ScrollView 
 import { Button, Input, NavBar } from 'galio-framework';
 import PhoneInput from 'react-native-phone-number-input';
 import theme from './theme';
+import auth from "../firebaseConfigs";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const { width } = Dimensions.get('window');
 
@@ -21,7 +23,19 @@ const Login = ({ navigation }) => {
 
   const handleSignIn = () => {
     Alert.alert('Sign In action', `Email: ${email}`);
-    navigation.navigate('maingamenav')
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        navigation.navigate('maingamenav')
+        // ...
+      })
+      .catch((error) => {
+        Alert.alert('Password is wrong, Enter correct Password!');
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+
   }
   // const handleSignUp = () => {
   //   Alert.alert('Sign Up action', `Email: ${email}`);
