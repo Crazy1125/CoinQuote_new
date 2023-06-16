@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Dimensions, StatusBar } from 'react-native';
-import { Block } from 'expo-ui-kit';
-
-
+import { Block, Row, Col } from 'expo-ui-kit';
 import axios from 'axios';
-
 import List from "./List";
 import SearchBar from "./SearchBar";
 import SelectedCoin from "./SelectedCoin";
+import { View, Text } from 'react-native';
+import RefreshButton from './RefreshButton';
+
 
 const { width } = Dimensions.get('screen');
 
@@ -22,6 +22,12 @@ export default function SelectCoin({ navigation, coincount }) {
   const [coindata, setCoinData] = useState();
   const [selectedcoindata, setSelectedCoinData] = useState();
   const [track, setTracking] = useState(0);
+
+
+
+
+
+
 
   const coinURI = require(`../assets/coinicons/1.png`);
   const selectCoin = (index, selcoindata, direction, multicount) => {
@@ -40,49 +46,59 @@ export default function SelectCoin({ navigation, coincount }) {
     }
     console.log(selcoindata.symbol);
   }
+
+  const getData = async () => {
+    const response = await axios.get(
+      //       // 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest',
+      'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+      {
+        headers: {
+          'X-CMC_PRO_API_KEY': '0b646e2f-36da-4808-92ef-bfc5137c0c92',
+        },
+        params: {
+          start: '1',
+          limit: '20',
+          convert: 'USD',
+        },
+      }
+    );
+    response.data.data.forEach(item => {
+
+      console.log(item.quote.USD.percent_change_24h);
+    });
+    coindatas = response.data.data;
+    setCoinData(coindatas);
+    selectedcoindatas = []
+    setSelectedCoinData(selectedcoindatas);
+    setLoaded(true);
+  };
+
+  const handleRefresh = async () => {
+    getData();
+  };
+
+
+
+
+
+
   useEffect(() => {
+    getData();
+  },
+    []
+  );
 
-    const timer = setTimeout(() => {
-      setTracking(track + 1);
-      console.log("track", track);
-      const getData = async () => {
-        const response = await axios.get(
-          //       // 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest',
-          'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-          {
-            headers: {
-              'X-CMC_PRO_API_KEY': '0b646e2f-36da-4808-92ef-bfc5137c0c92',
-            },
-            params: {
-              start: '1',
-              limit: '20',
-              convert: 'USD',
-            },
-          }
-        );
-        response.data.data.forEach(item => {
+  // if (!loaded) {
+  //   getData();
+  // }
+  //   }, 100000);
 
-          console.log(item.quote.USD.percent_change_24h);
-        });
-        coindatas = response.data.data;
-        setCoinData(coindatas);
-        selectedcoindatas = []
-        setSelectedCoinData(selectedcoindatas);
-        setLoaded(true);
-      };
-
-      getData();
-      // if (!loaded) {
-      //   getData();
-      // }
-    }, 20000);
-
-    return () => {
-      clearTimeout(timer);
-    };
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
 
 
-  }, [track]);
+  // }, [track]);
   return (
     <Block safe top backgroundColor='#ffffff'>
 
@@ -91,7 +107,15 @@ export default function SelectCoin({ navigation, coincount }) {
 
 
       <Block >
-        <SelectedCoin selcoindata={selectedcoindata} selcount={count} coincount={coincount}></SelectedCoin>
+
+        <Block flex={1} row>
+          <Block style={{ backgroundColor: 'transparent' }} flex={9}>
+            <SelectedCoin selcoindata={selectedcoindata} selcount={count} coincount={coincount}></SelectedCoin>
+          </Block>
+          <Block style={{ backgroundColor: 'transparent' }} flex={1}>
+            <RefreshButton onPress={handleRefresh} />
+          </Block>
+        </Block>
         <SearchBar
           searchPhrase={searchPhrase}
           setSearchPhrase={setSearchPhrase}
@@ -101,6 +125,7 @@ export default function SelectCoin({ navigation, coincount }) {
         />
 
       </Block>
+
 
       <List
         searchPhrase={searchPhrase}

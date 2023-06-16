@@ -26,12 +26,9 @@ export default function Coin({ coindata, selectCoin, count }) {
   const textcolors2 = ['#00164f', '#00164f', '#00164f', '#00164f', '#00164f'];
   const handleSelectCoinClick = () => {
     if (count <= 6) {
-      console.log("count", count);
+      console.log("count", count, coindata, direction, mulcount);
       showView ? setShowView(false) : setShowView(true);
       selectCoin(1, coindata, direction, mulcount);
-    }
-    if (count > 6) {
-
     }
 
   };
@@ -91,16 +88,16 @@ export default function Coin({ coindata, selectCoin, count }) {
           <Block left top>
 
             <Block style={{ ...styles.container_row, }} left middle marginHorizontal={15}>
-              <Text black style={{ fontSize: 18, fontWeight: 'bold', flex: 0.5 }}>{coindata.symbol}</Text>
+              <Text black style={{ fontSize: 18, fontWeight: 'bold', flex: 0.3 }}>{coindata.symbol}</Text>
               <Block flex={2} style={{ ...styles.container_row, }} left>
                 <Text style={{ fontSize: 13, color: 'black', fontWeight: 'bold', fontSize: 16, }} white>24h% :</Text>
 
                 {coindata.quote.USD.percent_change_24h > 0 && (
-                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(3)}%({coindata.quote.USD.price.toFixed(2)})</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h < 0 && (
-                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
+                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(3)}%({coindata.quote.USD.price.toFixed(2)})</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h === 0 && (

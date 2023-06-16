@@ -5,7 +5,7 @@ import { Button, Input, NavBar } from 'galio-framework';
 import PhoneInput from 'react-native-phone-number-input';
 import theme from './theme';
 import auth from "../firebaseConfigs";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, } from "firebase/auth";
 
 const { width } = Dimensions.get('window');
 
@@ -21,17 +21,14 @@ const Login = ({ navigation }) => {
 
   const handleGoBack = () => Alert.alert('Back button pressed');
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     Alert.alert('Sign In action', `Email: ${email}`);
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        navigation.navigate('maingamenav')
-        // ...
+        navigation.navigate('maingamenav');
       })
       .catch((error) => {
-        Alert.alert('Password is wrong, Enter correct Password!');
+        Alert.alert('Password is wrong, Enter correct password');
         const errorCode = error.code;
         const errorMessage = error.message;
       });
