@@ -3,12 +3,12 @@ import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import { Block } from "expo-ui-kit";
 
-const SearchBar = ({clicked, searchPhrase, setSearchPhrase}) => {
+const SearchBar = ({ clicked, searchPhrase, setSearchPhrase }) => {
   return (
-    <Block style={{...styles.container, position: 'absolute'}} marginLeft={10}>
+    <Block style={{ ...styles.container, position: 'absolute' }} marginLeft={10}>
       <Block
         style={
-          
+
           clicked
             ? styles.searchBar__clicked
             : styles.searchBar__unclicked
@@ -19,8 +19,9 @@ const SearchBar = ({clicked, searchPhrase, setSearchPhrase}) => {
           name="search"
           size={30}
           color="white"
-          style={{ marginLeft: 0, marginTop:0 , height:40,  backgroundColor:'#43413e',borderTopLeftRadius:5, borderBottomLeftRadius:5,
-                  paddingLeft:5, paddingTop:5
+          style={{
+            marginLeft: 0, marginTop: 0, height: 40, backgroundColor: '#43413e', borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+            paddingLeft: 5, paddingTop: 5
           }}
         />
         {/* Input field */}
@@ -37,8 +38,8 @@ const SearchBar = ({clicked, searchPhrase, setSearchPhrase}) => {
         {/* cross Icon, depending on whether the search bar is clicked or not */}
         {clicked && (
           <Entypo name="cross" size={20} color="black" style={{ padding: 1 }} onPress={() => {
-              setSearchPhrase("")
-          }}/>
+            setSearchPhrase("")
+          }} />
         )}
       </Block>
       {/* cancel button, depending on whether the search bar is clicked or not */}
@@ -65,15 +66,15 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
-    width: "98%", 
-    marginTop:60
+    width: "98%",
+    marginTop: 60
 
   },
   searchBar__unclicked: {
     padding: 10,
     flexDirection: "row",
     width: "50%",
-    height:35,
+    height: 35,
     backgroundColor: "white",
     borderRadius: 15,
     alignItems: "center",
@@ -91,12 +92,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 0,
     width: "90%",
-    height:40,
-    backgroundColor:'#43413e',
-    color:'white',
-    paddingLeft:10,
-    borderBottomRightRadius:5,
-    borderTopRightRadius:5
+    height: 40,
+    backgroundColor: '#43413e',
+    color: 'white',
+    paddingLeft: 10,
+    borderBottomRightRadius: 5,
+    borderTopRightRadius: 5
 
   },
 });
