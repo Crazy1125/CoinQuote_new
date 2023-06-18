@@ -1,55 +1,67 @@
 import { Block, Text } from "expo-ui-kit";
 import { Image } from "react-native";
 import React from 'react'
-import {Button } from 'galio-framework';
+import { Button } from 'galio-framework';
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
 export default function Contest({ navigation }) {
-  const iconURI = require('../assets/contest/1.png'); 
-  const goldURI = require('../assets/Gold_Coins.png'); 
+  const iconURI = require('../assets/contest/1.png');
+  const goldURI = require('../assets/Gold_Coins.png');
+  const peopleURI = require('../assets/ivan.png');
   handleEnterGame = () => navigation.navigate('SelectCoin')
   return (
-    <Block height={100} backgroundColor={'#dddddd'} style={{borderWidth:2, borderRadius:10, marginTop:10, borderColor:'grey'}}> 
-      <Block style={{...styles.container_row, ...styles.block}} borderBar={1}>
+    <Block height={100} backgroundColor={'white'} style={{ borderWidth: 2, borderRadius: 10, marginTop: 10, borderColor: '#dddddd' }}>
+      <Block style={{ ...styles.container_row, ...styles.block }} borderBar={1}>
         <Block flex={0.5}>
-          <Block style={styles.container_row} center marginLeft={10} marginTop={-10}>
-            <Text style={{fontSize:14}} color='#0000ff'>Crypto Crash</Text>
-            <Text center style={{fontSize:12}} black>&nbsp;(20/80)</Text>
+          <Block style={styles.container_column} center marginLeft={5} marginTop={0}>
+            <Text style={{ fontSize: 12, fontFamily: 'Roboto-Medium', fontWeight: '500' }} color='#0000ff'>Crypto Crash</Text>
+            <Block style={{
+              flex: 1,
+              flexDirection: 'row',
+            }}>
+              <Image
+                style={{ width: 20, height: 20 }}
+                source={peopleURI}
+                resizeMode='contain'
+              />
+              <Text center style={{ fontSize: 12 }} black>&nbsp;(20/80)</Text>
+            </Block>
+
           </Block>
           <Block style={styles.container_row} center marginLeft={5}>
-            <Image 
-              style={{flex:0.6}}
+            <Image
+              style={{ flex: 0.6 }}
               source={iconURI}
               resizeMode='contain'
             />
             <Block marginLeft={10}>
-              <Text style={{fontSize:12}} black>200 
-              CFT</Text>
-              <Text style={{fontSize:10}} black>-20.00 USD</Text>
+              <Text style={{ fontSize: 12 }} black>200
+                CFT</Text>
+              <Text style={{ fontSize: 10 }} black>-20.00 USD</Text>
             </Block>
           </Block>
         </Block>
         <Block marginLeft={0} flex={1}>
-          <Text marginTop={10} center style={{fontSize: 13, fontWeight: 'bold'}} black>Pool Info 10% Winners &nbsp;&nbsp;&nbsp;4 hr games
+          <Text marginTop={10} center style={{ fontSize: 12, fontWeight: 'bold' }} black>Pool Info 10% Winners &nbsp;&nbsp;&nbsp;4 hr games
           </Text>
-          
-          <Block style={ styles.progressBar }>
-            <Animated.View style={{ ...styles.absoluteFill, backgroundColor: "red", width: '80%' }}/>
+
+          <Block style={styles.progressBar}>
+            <Animated.View style={{ ...styles.absoluteFill, backgroundColor: "red", width: '80%' }} />
           </Block>
           <Block center style={styles.container_row}>
-              
-              <Text center style={{fontSize:30}} marginLeft={10} black >⏱</Text>
-              <Text center style={{fontSize:13}} marginTop={5} black> 2hr 33m 24s left</Text>
-              <Button style={{...styles.btn_row, width:70, height:35, borderRadius:5, marginTop:15, marginLeft:50}}
-          handleEnterGame={handleEnterGame} onPress={handleEnterGame}>
-                <Image style={{flex:0.4}}
-                      source={goldURI}
-                      resizeMode='contain'
-                  />
-                <Text color="#f8e975" style={{fontWeight:'bold'}}> 15</Text>
-              </Button>
-            </Block>
+
+            <Text center style={{ fontSize: 30 }} marginLeft={10} black >⏱</Text>
+            <Text center style={{ fontSize: 13 }} marginTop={5} black> 2hr 33m 24s left</Text>
+            <Button style={{ ...styles.btn_row, width: 70, height: 35, borderRadius: 5, marginTop: 15, marginLeft: 50 }}
+              handleEnterGame={handleEnterGame} onPress={handleEnterGame}>
+              <Image style={{ flex: 0.4 }}
+                source={goldURI}
+                resizeMode='contain'
+              />
+              <Text color="#f8e975" style={{ fontWeight: 'bold' }}> 15</Text>
+            </Button>
+          </Block>
         </Block>
       </Block>
     </Block>
@@ -63,9 +75,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 0,
   },
+  container_column: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: -50,
+  },
   btn_row: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'rgb(255, 105, 180)'
   },
   progressBar: {
     marginTop: 10,
@@ -80,7 +99,7 @@ const styles = StyleSheet.create({
   },
 
   borderBar: {
-    flex:0.001,
+    flex: 0.001,
     height: 2,
     width: '100%',
     backgroundColor: 'white',
@@ -88,7 +107,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 1
   },
-  absoluteFill :{
+  absoluteFill: {
     position: 'absolute',
     left: 0,
     right: 0,

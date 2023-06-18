@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import { Block } from "expo-ui-kit";
+import { color } from "react-native-elements/dist/helpers";
 
 const SearchBar = ({ clicked, searchPhrase, setSearchPhrase }) => {
   return (
     <Block style={{ ...styles.container, position: 'absolute' }} marginLeft={10}>
       <Block
         style={
-
           clicked
             ? styles.searchBar__clicked
             : styles.searchBar__unclicked
@@ -20,7 +20,7 @@ const SearchBar = ({ clicked, searchPhrase, setSearchPhrase }) => {
           size={30}
           color="white"
           style={{
-            marginLeft: 0, marginTop: 0, height: 40, backgroundColor: '#43413e', borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+            marginLeft: 0, marginTop: 0, height: 40, backgroundColor: 'rgba(128, 128, 128, 0.5)', borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
             paddingLeft: 5, paddingTop: 5
           }}
         />
@@ -67,7 +67,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     width: "98%",
-    marginTop: 60
+    marginTop: 60,
+
+
 
   },
   searchBar__unclicked: {
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     width: "90%",
     height: 40,
-    backgroundColor: '#43413e',
+    backgroundColor: 'rgba(128, 128, 128, 0.5)',
     color: 'white',
     paddingLeft: 10,
     borderBottomRightRadius: 5,

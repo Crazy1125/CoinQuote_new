@@ -12,7 +12,6 @@ import RefreshButton from './RefreshButton';
 const { width } = Dimensions.get('screen');
 
 export default function SelectCoin({ navigation, coincount }) {
-  console.log("ss:" + coincount);
   coincount = 7;
   const [index, setIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);

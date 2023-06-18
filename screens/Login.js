@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Block, Text } from "expo-ui-kit";
+import { Block, Text, View } from "expo-ui-kit";
 import { Image, Alert, Dimensions, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Button, Input, NavBar } from 'galio-framework';
 import PhoneInput from 'react-native-phone-number-input';
@@ -107,9 +107,15 @@ const SignButtons = ({ handleSignIn, handleSignUp }) => (
 
 
     <Button color="transparent" shadowless onPress={handleSignUp} >
-      <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.9} marginTop={-30} width={width} marginLeft={50}>
-        {"Don't have an account? Sign Up"}
-      </Text>
+
+      <Block flex={1} row>
+        <Text center color={'white'} size={theme.SIZES.FONT * 0.9} width={200} marginLeft={50} marginTop={-30} >
+          Don't have an account?
+        </Text>
+        <Text center size={theme.SIZES.FONT * 0.9} marginTop={-30} style={{ textDecorationLine: 'underline', textDecorationColor: 'white', color: 'rgb(255, 255, 255)' }} >
+          Sign Up
+        </Text>
+      </Block>
     </Button>
   </Block>
 );

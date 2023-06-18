@@ -40,16 +40,16 @@ export default function Coin({ coindata, selectCoin, count }) {
   const handleUpDownClick = (value) => {
     if (value == 1)
       console.log("click up button");
-    // setDirection(value);
+    setDirection(value);
     // selectCoin(1,coindata, value,mulcount);
     if (value == 2)
       console.log("click down button");
-    // setDirection(value);
+    setDirection(value);
     // selectCoin(1,coindata, value,mulcount);
   };
   const handleMxClick = (value) => {
     console.log("click x button" + value);
-    // setMulCount(value);
+    setMulCount(value);
     // selectCoin(1,coindata, direction,value);
   };
 
@@ -63,10 +63,10 @@ export default function Coin({ coindata, selectCoin, count }) {
     return (
       <LinearGradient
         colors={['#FFFFFF', '#FFFFFF', '#FFFFFF']}
-        //  colors={['#374174', '#2c2a58', '#374174']} 
+        // colors={['#374174', '#2c2a58', '#374174']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{ ...styles.gradient, borderRadius: 10, marginVertical: 5, borderColor: 'grey', borderWidth: 1 }}
+        style={{ ...styles.gradient, borderRadius: 10, marginVertical: 5, borderColor: 'rgba(128, 128, 128, 0.5)', borderWidth: 1 }}
       >
         {children}
       </LinearGradient>
@@ -93,15 +93,15 @@ export default function Coin({ coindata, selectCoin, count }) {
                 <Text style={{ fontSize: 13, color: 'black', fontWeight: 'bold', fontSize: 16, }} white>24h% :</Text>
 
                 {coindata.quote.USD.percent_change_24h > 0 && (
-                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(3)}%({coindata.quote.USD.price.toFixed(2)})</Text>
+                  <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', fontSize: 16, }} white>▲{coindata.quote.USD.percent_change_24h.toFixed(2)}%({coindata.quote.USD.price.toFixed(2)})</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h < 0 && (
-                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(3)}%({coindata.quote.USD.price.toFixed(2)})</Text>
+                  <Text style={{ fontSize: 14, color: 'red', fontWeight: 'bold', fontSize: 16, }} white>▼{coindata.quote.USD.percent_change_24h.toFixed(2)}%({coindata.quote.USD.price.toFixed(2)})</Text>
                 )}
 
                 {coindata.quote.USD.percent_change_24h === 0 && (
-                  <Text style={{ fontSize: 14, color: '#green', fontWeight: 'bold', fontSize: 16, }} white> {coindata.quote.USD.percent_change_24h.toFixed(3)}%</Text>
+                  <Text style={{ fontSize: 14, color: '#green', fontWeight: 'bold', fontSize: 16, }} white> {coindata.quote.USD.percent_change_24h.toFixed(2)}%</Text>
                 )}
 
               </Block>
@@ -125,11 +125,11 @@ export default function Coin({ coindata, selectCoin, count }) {
             {!showView && (
               <Block style={{ ...styles.container_row, alignItems: 'flex-start' }}   >
                 <Block flex={0.6}>
-                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} />
+                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} />
                 </Block>
                 <Block style={{ ...styles.container_row, }} left marginLeft={0}>
 
-                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} />
+                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} />
                 </Block>
               </Block>
             )}
