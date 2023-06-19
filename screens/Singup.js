@@ -41,6 +41,7 @@ const SignUp = ({ navigation }) => {
           // Signed in 
           const user = userCredential.user;
           setDoc(doc(db, "Userinfo", email), {
+
             email: email,
             name: username,
             phone: phone,
