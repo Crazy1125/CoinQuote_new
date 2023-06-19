@@ -4,8 +4,10 @@ import { Image, Alert, Dimensions, StyleSheet, KeyboardAvoidingView, ScrollView 
 import { Button, Input, NavBar } from 'galio-framework';
 import PhoneInput from 'react-native-phone-number-input';
 import theme from './theme';
-import auth from "../firebaseConfigs";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../config/firebaseConfigs";
+import db from "../config/firebaseConfigs_firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const { width } = Dimensions.get('window');
 
@@ -20,6 +22,7 @@ const SignUp = ({ navigation }) => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [con_password, setcon_Password] = useState('');
+  const [username, setUsername] = useState('');
 
   const updatePhone = (phone) => {
     setPhone(phone);
@@ -37,6 +40,13 @@ const SignUp = ({ navigation }) => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
+          setDoc(doc(db, "Userinfo", email), {
+            email: email,
+            name: username,
+            phone: phone,
+            password: password,
+
+          });
           // ...
         })
         .catch((error) => {
@@ -44,6 +54,8 @@ const SignUp = ({ navigation }) => {
           const errorMessage = error.message;
           // ..
         });
+
+
       navigation.navigate('Login');
     }
   }
@@ -67,9 +79,10 @@ const SignUp = ({ navigation }) => {
           />
           {/* <Text center h1 white marginHorizontal={30} marginTop={-70}>SIGN UP</Text> */}
 
-          <Block flex middle marginTop={-130}>
+          <Block flex middle marginTop={-200}>
             <Form email={email} setEmail={setEmail}
               phone={phone} updatePhone={updatePhone}
+              username={username} setUsername={setUsername}
               setPassword={setPassword} setcon_Password={setcon_Password}
               password={password} con_password={con_password} />
             <SignButtons handleSignIn={handleSignIn} handleSignUp={handleSignUp} />
@@ -80,7 +93,7 @@ const SignUp = ({ navigation }) => {
   );
 }
 
-const Form = ({ email, setEmail, phone, updatePhone, password, setPassword, con_password, setcon_Password }) => (
+const Form = ({ email, setEmail, phone, updatePhone, password, setPassword, con_password, setcon_Password, username, setUsername }) => (
   <Block style={{ marginBottom: 20 }}>
     <Text h4 white marginTop={10} marginLeft={30}>Email *</Text>
     <Input
@@ -103,6 +116,14 @@ const Form = ({ email, setEmail, phone, updatePhone, password, setPassword, con_
       onChangeFormattedText={updatePhone}
       value={phone}
 
+    />
+    <Input
+      borderless
+      placeholder="Enter your username"
+      autoCapitalize="none"
+      style={styles.input}
+      onChangeText={setUsername}
+      value={username}
     />
 
     <Input

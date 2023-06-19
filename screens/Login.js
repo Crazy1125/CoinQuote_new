@@ -4,8 +4,8 @@ import { Image, Alert, Dimensions, StyleSheet, KeyboardAvoidingView, ScrollView 
 import { Button, Input, NavBar } from 'galio-framework';
 import PhoneInput from 'react-native-phone-number-input';
 import theme from './theme';
-import auth from "../firebaseConfigs";
-import { getAuth, signInWithEmailAndPassword, sendEmailVerification, } from "firebase/auth";
+import auth from "../config/firebaseConfigs";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const { width } = Dimensions.get('window');
 
