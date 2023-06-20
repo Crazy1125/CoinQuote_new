@@ -11,7 +11,7 @@ import MultiButtonSelect from './MultiButtonSelect';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Coin({ coindata, selectCoin, count }) {
+export default function Coin({ coindata, selectCoin, count, selectedcoindatas }) {
   // const coinURI = require(path);
   const coinURI = require(`../assets/coinicons/1.png`);
   const [showView, setShowView] = useState(true);
@@ -34,22 +34,41 @@ export default function Coin({ coindata, selectCoin, count }) {
 
   };
   const handleCancelCoinClick = () => {
-
-    console.log("count", count);
     showView ? setShowView(false) : setShowView(true);
     selectCoin(-1, coindata, 0, 0);
+
+
   };
   const handleUpDownClick = (value) => {
+    console.log(selectedcoindatas);
+    console.log(coindata.symbol);
     setAlert(alert + 1);
+    console.log("value", value);
     if (value == 1) {
-      console.log("click up button", alert);
+      // console.log("click up button", alert);
       setDirection(value);
-      // selectCoin(1,coindata, value,mulcount);
+
+      selectedcoindatas.map(item => {
+        if (item.symbol == coindata.symbol) {
+          console.log("same! 1");
+          item.direction = 1;// Update the name property of the object with id 2
+        } else {
+          return item;
+        }
+      })
     }
 
     if (value == 2) {
-      console.log("click down button", alert);
+      // console.log("click down button", alert);
       setDirection(value);
+      selectedcoindatas.map(item => {
+        if (item.symbol == coindata.symbol) {
+          console.log("same! 2");
+          item.direction = 2; // Update the name property of the object with id 2
+        } else {
+          return item;
+        }
+      });
       // selectCoin(1,coindata, value,mulcount);
     }
 
@@ -58,6 +77,14 @@ export default function Coin({ coindata, selectCoin, count }) {
     setAlert(alert + 1);
     console.log("click x button", alert);
     setMulCount(value);
+    selectedcoindatas.map(item => {
+      if (item.symbol == coindata.symbol) {
+
+        item.multicount = value; // Update the name property of the object with id 2
+      } else {
+        return item;
+      }
+    });
     // selectCoin(1,coindata, direction,value);
   };
 
@@ -133,11 +160,11 @@ export default function Coin({ coindata, selectCoin, count }) {
             {!showView && (
               <Block style={{ ...styles.container_row, alignItems: 'flex-start' }}   >
                 <Block flex={0.6}>
-                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} alert={alert} cal_count={count} />
+                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} />
                 </Block>
                 <Block style={{ ...styles.container_row, }} left marginLeft={0}>
 
-                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} alert={alert} cal_count={count} />
+                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} />
                 </Block>
               </Block>
             )}

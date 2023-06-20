@@ -3,19 +3,25 @@ import { StyleSheet } from "react-native";
 import { Block, Text } from "expo-ui-kit";
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNav from "./Drawer";
+import { Provider } from 'react-redux';
+import store from './store/store';
+
 
 
 
 export default function App() {
   return (
 
+    <Provider store={store}>
 
-    <NavigationContainer>
-      <DrawerNav />
-      {/* <Block secondary center middle>
+      <NavigationContainer>
+        <DrawerNav />
+        {/* <Block secondary center middle>
       <Text>welcome react native for ppp</Text>
     </Block> */}
-    </NavigationContainer>
+      </NavigationContainer>
+
+    </Provider>
 
   );
 }

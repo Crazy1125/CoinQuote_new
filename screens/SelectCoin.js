@@ -34,18 +34,35 @@ export default function SelectCoin({ navigation, coincount }) {
   const selectCoin = (index, selcoindata, direction, multicount) => {
 
     setCount(count + index);
-    console.log("count", count);
+
+    if (index == -1) {
+      console.log("selcoindata", selcoindata.symbol);
+      selectedcoindatas = selectedcoindata;
+      selectedcoindatas.map(item => {
+        if (item.symbol == selcoindata.symbol) {
+          console.log("delete");
+          updated_array = selectedcoindatas.filter(item => item.symbol != selcoindata.symbol);
+          console.log("updated_array", updated_array);
+          selectedcoindatas = updated_array;
+          setSelectedCoinData(selectedcoindatas);
+        } else {
+          return item;
+        }
+      })
+    }
+
 
     if (index == 1) {
       newSelCoin = {};
-      newSelCoin.data = selcoindata;
+      newSelCoin.symbol = selcoindata.symbol;
+      newSelCoin.selectedprice = selcoindata.quote.USD.price;
       newSelCoin.direction = direction;
       newSelCoin.multicount = multicount;
       selectedcoindatas = selectedcoindata;
       selectedcoindatas.push(newSelCoin);
       setSelectedCoinData(selectedcoindatas);
     }
-    console.log("coindata", selcoindata.symbol, direction, multicount);
+    // console.log("coindata", selcoindata.symbol, direction, multicount);
   }
 
   const getData = async () => {
@@ -65,7 +82,7 @@ export default function SelectCoin({ navigation, coincount }) {
     );
     response.data.data.forEach(item => {
 
-      console.log(item.quote.USD.percent_change_24h);
+      // console.log(item.quote.USD.percent_change_24h);
     });
     coindatas = response.data.data;
     setCoinData(coindatas);
@@ -133,6 +150,7 @@ export default function SelectCoin({ navigation, coincount }) {
         data={coindata}
         selectCoin={selectCoin}
         count={count}
+        selectedcoindatas={selectedcoindatas}
 
       />
 

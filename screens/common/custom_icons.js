@@ -4,9 +4,9 @@ import theme from '../theme';
 const CustomIcon = (
     name,
     size = 22,
-    style = { color:theme.COLORS.WHITE }
+    style = { color: theme.COLORS.WHITE }
 ) => {
-    console.log(name, size, style)
+    // console.log(name, size, style)
     return (
         <AntDesign name={name} size={size} style={style} />
     );
