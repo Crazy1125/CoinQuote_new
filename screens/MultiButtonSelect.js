@@ -3,10 +3,14 @@ import { Block, Text } from 'expo-ui-kit';
 import { Button } from 'galio-framework';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
+import auth from "../config/firebaseConfigs";
+import db from "../config/firebaseConfigs_firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count, selectedcoindatas }) {
 
-
+  const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
 
   const handlePress = (value) => {
@@ -21,12 +25,23 @@ export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle
             {
               text: 'Cancel',
               onPress: () => {
-                console.log('Cancel Pressed', selectedcoindatas);
+                console.log('Cancel Pressed', selectedcoindatas, currentUserEmail);
 
               },
               style: 'cancel',
             },
-            { text: 'OK', onPress: () => console.log('OK Pressed', selectedcoindatas) },
+            {
+              text: 'OK', onPress: () => {
+                console.log('OK Pressed', selectedcoindatas, currentUserEmail);
+                setDoc(doc(db, "selection_coin_info", currentUserEmail), {
+
+                  email: currentUserEmail,
+                  data: selectedcoindatas,
+
+                });
+
+              },
+            }
           ],
           { cancelable: false }
         );
@@ -54,8 +69,22 @@ export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle
     return buttonArray;
   };
 
+
+
   useEffect(() => {
-    // console.log("col", selected);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const email = user.email;
+        setCurrentUserEmail(email);
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
   },
     []
   );

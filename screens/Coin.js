@@ -35,7 +35,7 @@ export default function Coin({ coindata, selectCoin, count, selectedcoindatas })
   };
   const handleCancelCoinClick = () => {
     showView ? setShowView(false) : setShowView(true);
-    selectCoin(-1, coindata, 0, 0);
+    selectCoin(-1, coindata, 1, 1);
 
 
   };

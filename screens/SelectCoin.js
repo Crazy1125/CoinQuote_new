@@ -21,16 +21,14 @@ export default function SelectCoin({ navigation, coincount }) {
   const [searchPhrase, setSearchPhrase] = useState("");
   // const [clicked, setClicked] = useState(false);
   const [coindata, setCoinData] = useState();
-  const [selectedcoindata, setSelectedCoinData] = useState();
+  const [selectedcoindata, setSelectedCoinData] = useState([]);
   const [track, setTracking] = useState(0);
 
 
 
-
-
-
-
   const coinURI = require(`../assets/coinicons/1.png`);
+  selectedcoindatas = selectedcoindata;
+
   const selectCoin = (index, selcoindata, direction, multicount) => {
 
     setCount(count + index);
