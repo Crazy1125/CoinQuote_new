@@ -11,20 +11,20 @@ import { Block } from 'expo-ui-kit';
 import Coin from "./Coin";
 
 // definition of the Item, which will be rendered in the FlatList
-const Item = ({ coindata, selectCoin, count }) => (
-  <Coin coindata={coindata} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} />
+const Item = ({ coindata, selectCoin, count, selectedcoindatas, navigation }) => (
+  <Coin coindata={coindata} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} navigation={navigation} />
 );
 
 // the filter
-const List = ({ searchPhrase, data, selectCoin, count, selectedcoindatas }) => {
+const List = ({ searchPhrase, data, selectCoin, count, selectedcoindatas, navigation }) => {
   const renderItem = ({ item }) => {
     // when no input, show all
     if (searchPhrase === "") {
-      return <Item coindata={item} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} />;
+      return <Item coindata={item} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} navigation={navigation} />;
     }
     // filter of the name
     if (item.symbol.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-      return <Item coindata={item} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} />;
+      return <Item coindata={item} selectCoin={selectCoin} count={count} selectedcoindatas={selectedcoindatas} navigation={navigation} />;
     }
 
   };

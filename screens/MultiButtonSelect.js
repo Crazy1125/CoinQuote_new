@@ -8,7 +8,7 @@ import db from "../config/firebaseConfigs_firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
-export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count, selectedcoindatas }) {
+export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count, selectedcoindatas, navigation }) {
 
   const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
@@ -28,17 +28,19 @@ export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle
                 console.log('Cancel Pressed', selectedcoindatas, currentUserEmail);
 
               },
-              style: 'cancel',
+
             },
             {
               text: 'OK', onPress: () => {
                 console.log('OK Pressed', selectedcoindatas, currentUserEmail);
+                navigation.goBack();
                 setDoc(doc(db, "selection_coin_info", currentUserEmail), {
 
                   email: currentUserEmail,
                   data: selectedcoindatas,
 
                 });
+
 
               },
             }

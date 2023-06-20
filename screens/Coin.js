@@ -11,7 +11,7 @@ import MultiButtonSelect from './MultiButtonSelect';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Coin({ coindata, selectCoin, count, selectedcoindatas }) {
+export default function Coin({ coindata, selectCoin, count, selectedcoindatas, navigation }) {
   // const coinURI = require(path);
   const coinURI = require(`../assets/coinicons/1.png`);
   const [showView, setShowView] = useState(true);
@@ -26,6 +26,7 @@ export default function Coin({ coindata, selectCoin, count, selectedcoindatas })
   const textcolors1 = ['#60ff00', 'red'];
   const textcolors2 = ['#00164f', '#00164f', '#00164f', '#00164f', '#00164f'];
   const handleSelectCoinClick = () => {
+
     if (count <= 6) {
       // console.log("count", count, coindata, direction, mulcount);
       showView ? setShowView(false) : setShowView(true);
@@ -160,11 +161,11 @@ export default function Coin({ coindata, selectCoin, count, selectedcoindatas })
             {!showView && (
               <Block style={{ ...styles.container_row, alignItems: 'flex-start' }}   >
                 <Block flex={0.6}>
-                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} />
+                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} navigation={navigation} />
                 </Block>
                 <Block style={{ ...styles.container_row, }} left marginLeft={0}>
 
-                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} />
+                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} alert={alert} cal_count={count} selectedcoindatas={selectedcoindatas} navigation={navigation} />
                 </Block>
               </Block>
             )}
