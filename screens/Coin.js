@@ -6,8 +6,8 @@ import { Button, Icon } from 'galio-framework';
 import { StyleSheet } from "react-native";
 import { ProgressBar } from 'galio-framework';
 import Animated from "react-native-reanimated";
-import { AntDesign } from '@expo/vector-icons'
-import MultiButtonSelect from './MultiButtonSelect'
+import { AntDesign } from '@expo/vector-icons';
+import MultiButtonSelect from './MultiButtonSelect';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
@@ -19,6 +19,7 @@ export default function Coin({ coindata, selectCoin, count }) {
   const [direction, setDirection] = useState(1);
   const [mulcount, setMulCount] = useState(1);
   const [coinIconUrl, setCoinIconUrl] = useState("");
+  const [alert, setAlert] = useState(1);
 
   const btnTitles1 = ['▲', '▼'];
   const btnTitles2 = ['1x', '2x', '3x', '4x', '5x'];
@@ -26,29 +27,36 @@ export default function Coin({ coindata, selectCoin, count }) {
   const textcolors2 = ['#00164f', '#00164f', '#00164f', '#00164f', '#00164f'];
   const handleSelectCoinClick = () => {
     if (count <= 6) {
-      console.log("count", count, coindata, direction, mulcount);
+      // console.log("count", count, coindata, direction, mulcount);
       showView ? setShowView(false) : setShowView(true);
       selectCoin(1, coindata, direction, mulcount);
     }
 
   };
   const handleCancelCoinClick = () => {
+
     console.log("count", count);
     showView ? setShowView(false) : setShowView(true);
     selectCoin(-1, coindata, 0, 0);
   };
   const handleUpDownClick = (value) => {
-    if (value == 1)
-      console.log("click up button");
-    setDirection(value);
-    // selectCoin(1,coindata, value,mulcount);
-    if (value == 2)
-      console.log("click down button");
-    setDirection(value);
-    // selectCoin(1,coindata, value,mulcount);
+    setAlert(alert + 1);
+    if (value == 1) {
+      console.log("click up button", alert);
+      setDirection(value);
+      // selectCoin(1,coindata, value,mulcount);
+    }
+
+    if (value == 2) {
+      console.log("click down button", alert);
+      setDirection(value);
+      // selectCoin(1,coindata, value,mulcount);
+    }
+
   };
   const handleMxClick = (value) => {
-    console.log("click x button" + value);
+    setAlert(alert + 1);
+    console.log("click x button", alert);
     setMulCount(value);
     // selectCoin(1,coindata, direction,value);
   };
@@ -125,11 +133,11 @@ export default function Coin({ coindata, selectCoin, count }) {
             {!showView && (
               <Block style={{ ...styles.container_row, alignItems: 'flex-start' }}   >
                 <Block flex={0.6}>
-                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} />
+                  <MultiButtonSelect count={2} onSelect={handleUpDownClick} titles={btnTitles1} btnstyle={{ ...styles.multibtn1 }} textstyle={{ fontSize: 18, marginTop: -3 }} textcolors={textcolors1} selected={direction} alert={alert} cal_count={count} />
                 </Block>
                 <Block style={{ ...styles.container_row, }} left marginLeft={0}>
 
-                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} />
+                  <MultiButtonSelect count={5} onSelect={handleMxClick} titles={btnTitles2} btnstyle={{ ...styles.multibtn2 }} textstyle={{ fontSize: 15 }} textcolors={textcolors2} selected={mulcount} alert={alert} cal_count={count} />
                 </Block>
               </Block>
             )}

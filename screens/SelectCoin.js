@@ -9,6 +9,8 @@ import { View, Text } from 'react-native';
 import RefreshButton from './RefreshButton';
 
 
+
+
 const { width } = Dimensions.get('screen');
 
 export default function SelectCoin({ navigation, coincount }) {
@@ -32,7 +34,7 @@ export default function SelectCoin({ navigation, coincount }) {
   const selectCoin = (index, selcoindata, direction, multicount) => {
 
     setCount(count + index);
-    console.log(count);
+    console.log("count", count);
 
     if (index == 1) {
       newSelCoin = {};
@@ -43,7 +45,7 @@ export default function SelectCoin({ navigation, coincount }) {
       selectedcoindatas.push(newSelCoin);
       setSelectedCoinData(selectedcoindatas);
     }
-    console.log(selcoindata.symbol);
+    console.log("coindata", selcoindata.symbol, direction, multicount);
   }
 
   const getData = async () => {

@@ -2,13 +2,33 @@ import React, { useState } from 'react';
 import { Block, Text } from 'expo-ui-kit';
 import { Button } from 'galio-framework';
 import { useEffect } from 'react';
+import { Alert } from 'react-native';
 
-export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected }) {
+export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count }) {
+
+
 
 
   const handlePress = (value) => {
     onSelect(value);
-    console.log(value);
+    console.log("count+alert", cal_count, alert);
+    if (cal_count == 7) {
+      if (alert == 2) {
+        Alert.alert(
+          'Confirm Action',
+          'Are you sure you want to perform this selection?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false }
+        );
+      }
+    }
   };
 
   const renderButtons = () => {
