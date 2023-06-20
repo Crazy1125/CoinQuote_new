@@ -4,26 +4,29 @@ import { Button } from 'galio-framework';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
-export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count }) {
+export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle, textcolors, titles, selected, alert, cal_count, selectedcoindatas }) {
 
 
 
 
   const handlePress = (value) => {
     onSelect(value);
-    console.log("count+alert", cal_count, alert);
+    // console.log("count+alert", cal_count, alert);
     if (cal_count == 7) {
-      if (alert == 2) {
+      if (alert >= 2) {
         Alert.alert(
           'Confirm Action',
           'Are you sure you want to perform this selection?',
           [
             {
               text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
+              onPress: () => {
+                console.log('Cancel Pressed', selectedcoindatas);
+
+              },
               style: 'cancel',
             },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'OK', onPress: () => console.log('OK Pressed', selectedcoindatas) },
           ],
           { cancelable: false }
         );
@@ -52,7 +55,7 @@ export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle
   };
 
   useEffect(() => {
-    console.log("col", selected);
+    // console.log("col", selected);
   },
     []
   );
