@@ -4,12 +4,36 @@ import React from 'react'
 import { Button } from 'galio-framework';
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
+import { useState, useEffect } from 'react';
 
 export default function Contest({ navigation }) {
+
   const iconURI = require('../assets/contest/1.png');
   const goldURI = require('../assets/Gold_Coins.png');
   const peopleURI = require('../assets/ivan.png');
-  handleEnterGame = () => navigation.navigate('SelectCoin')
+  handleEnterGame = () => navigation.navigate('SelectCoin');
+
+  const [remainingTime, setRemainingTime] = useState(4 * 60 * 60 * 1000);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRemainingTime((prevRemainingTime) => prevRemainingTime - 1000);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formatTime = (time) => {
+    const hours = Math.floor(time / (60 * 60 * 1000));
+    const minutes = Math.floor((time % (60 * 60 * 1000)) / (60 * 1000));
+    const seconds = Math.floor((time % (60 * 1000)) / 1000);
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+
+
   return (
     <Block height={100} backgroundColor={'white'} style={{ borderWidth: 2, borderRadius: 10, marginTop: 10, borderColor: '#dddddd' }}>
       <Block style={{ ...styles.container_row, ...styles.block }} borderBar={1}>
@@ -52,7 +76,8 @@ export default function Contest({ navigation }) {
           <Block center style={styles.container_row}>
 
             <Text center style={{ fontSize: 30 }} marginLeft={10} black >⏱</Text>
-            <Text center style={{ fontSize: 13 }} marginTop={5} black> 2hr 33m 24s left</Text>
+            <Text center style={{ fontSize: 13 }} marginTop={5} marginLeft={20} black>{formatTime(remainingTime)}</Text>
+
             <Button style={{ ...styles.btn_row, width: 70, height: 35, borderRadius: 5, marginTop: 15, marginLeft: 50 }}
               handleEnterGame={handleEnterGame} onPress={handleEnterGame}>
               <Image style={{ flex: 0.4 }}
