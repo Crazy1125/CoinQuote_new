@@ -31,6 +31,8 @@ export default function SelectCoin({ coincount, navigation }) {
 
   const selectCoin = (index, selcoindata, direction, multicount) => {
 
+    console.log(coindata.symbol);
+
     setCount(count + index);
 
     if (index == -1) {
@@ -64,6 +66,8 @@ export default function SelectCoin({ coincount, navigation }) {
   }
 
   const getData = async () => {
+
+
     const response = await axios.get(
       //       // 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest',
       'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
@@ -91,6 +95,7 @@ export default function SelectCoin({ coincount, navigation }) {
 
   const handleRefresh = async () => {
     getData();
+
   };
 
 

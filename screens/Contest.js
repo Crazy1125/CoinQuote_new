@@ -5,13 +5,46 @@ import { Button } from 'galio-framework';
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
+
 
 export default function Contest({ navigation }) {
 
   const iconURI = require('../assets/contest/1.png');
   const goldURI = require('../assets/Gold_Coins.png');
   const peopleURI = require('../assets/ivan.png');
-  handleEnterGame = () => navigation.navigate('SelectCoin');
+  const handleEnterGame = () => {
+
+    // Alert.alert(
+    //   'Confirm Game Result',
+    //   'coineater : 59.05, Jhon1125 : 62.13, Tony1125 : 48.25',
+    //   [
+    //     {
+    //       text: 'Cancel',
+    //       onPress: () => {
+    //         console.log('Cancel Pressed');
+
+    //       },
+
+    //     },
+    //     {
+    //       text: 'OK', onPress: () => {
+    //         console.log('OK Pressed');
+
+
+    //       },
+    //     }
+    //   ],
+    //   { cancelable: false }
+    // );
+    navigation.navigate('SelectCoin');
+
+  }
+
+  const handleGameResult = () => {
+    navigation.navigate('ShowResult');
+
+  }
 
   const [remainingTime, setRemainingTime] = useState(4 * 60 * 60 * 1000);
 
@@ -76,9 +109,13 @@ export default function Contest({ navigation }) {
           <Block center style={styles.container_row}>
 
             <Text center style={{ fontSize: 30 }} marginLeft={10} black >⏱</Text>
-            <Text center style={{ fontSize: 13 }} marginTop={5} marginLeft={20} black>{formatTime(remainingTime)}</Text>
-
-            <Button style={{ ...styles.btn_row, width: 70, height: 35, borderRadius: 5, marginTop: 15, marginLeft: 50 }}
+            <Text center style={{ fontSize: 20 }} marginTop={5} marginLeft={15} black>{formatTime(remainingTime)}</Text>
+            {/* <Text center style={{ fontSize: 20 }} marginTop={5} marginLeft={15} black>Finished</Text> */}
+            <Button style={{ ...styles.btn_row, width: 20, height: 35, borderRadius: 5, marginTop: 15, marginLeft: 10 }}
+              onPress={handleGameResult}>
+              <Text color="#00e900" style={{ fontWeight: 'bold' }}>Result</Text>
+            </Button>
+            <Button style={{ ...styles.btn_row, width: 50, height: 35, borderRadius: 5, marginTop: 15, marginLeft: 10 }}
               handleEnterGame={handleEnterGame} onPress={handleEnterGame}>
               <Image style={{ flex: 0.4 }}
                 source={goldURI}

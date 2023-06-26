@@ -16,8 +16,8 @@ import Login from './screens/Login';
 import Signup from './screens/Singup';
 import MainGame from './screens/MainGame';
 import SelectCoin from './screens/SelectCoin';
-import MultiButtonSelect from './screens/MultiButtonSelect';
-
+import ShowResult from './screens/ShowResult';
+import Profile from './screens/Profile';
 
 
 const Drawer = createDrawerNavigator();
@@ -98,7 +98,8 @@ const MainGameNav = ({ navigation }) => {
       }} >
       <Stack.Screen name="MainGame" component={MainGame} />
       <Stack.Screen name="SelectCoin" component={SelectCoin} initialParams={{ coincount: 10 }} screenOptions={{ headerShown: true }} />
-      <Stack.Screen name="MultiButtonSelect" component={MultiButtonSelect} />
+      <Stack.Screen name="ShowResult" component={ShowResult} />
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 }

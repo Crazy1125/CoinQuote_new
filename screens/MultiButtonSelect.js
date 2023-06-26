@@ -14,6 +14,8 @@ export default function MultiButtonSelect({ count, onSelect, btnstyle, textstyle
 
 
   const handlePress = (value) => {
+
+
     onSelect(value);
     // console.log("count+alert", cal_count, alert);
     if (cal_count == 7) {
